@@ -6,18 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutterlearniti/core/mytheme.dart';
 import 'package:flutterlearniti/provider/bookprovider.dart';
 import 'package:flutterlearniti/provider/savedprovider.dart';
-import 'package:flutterlearniti/welcomePages/appscreans/Athuntication/forgotpassword.dart';
-import 'package:flutterlearniti/welcomePages/appscreans/Athuntication/login.dart';
-import 'package:flutterlearniti/welcomePages/appscreans/Athuntication/register.dart';
-import 'package:flutterlearniti/welcomePages/appscreans/bookstoreitem.dart';
-import 'package:flutterlearniti/welcomePages/appscreans/dachbourd.dart';
-import 'package:flutterlearniti/welcomePages/appscreans/homescrean.dart';
-import 'package:flutterlearniti/welcomePages/appscreans/introscrean.dart';
-import 'package:flutterlearniti/welcomePages/appscreans/librarybookscreen.dart';
-import 'package:flutterlearniti/welcomePages/appscreans/profile.dart';
-import 'package:flutterlearniti/welcomePages/appscreans/saved.dart';
-import 'package:flutterlearniti/welcomePages/appscreans/search.dart';
-import 'package:flutterlearniti/welcomePages/appscreans/settings.dart';
+import 'package:flutterlearniti/allapppages/appscreans/Athuntication/forgotpassword.dart';
+import 'package:flutterlearniti/allapppages/appscreans/Athuntication/login.dart';
+import 'package:flutterlearniti/allapppages/appscreans/Athuntication/register.dart';
+import 'package:flutterlearniti/allapppages/appscreans/bookstoreitem.dart';
+import 'package:flutterlearniti/allapppages/appscreans/dachbourd.dart';
+import 'package:flutterlearniti/allapppages/appscreans/homescrean.dart';
+import 'package:flutterlearniti/allapppages/appscreans/introscrean.dart';
+import 'package:flutterlearniti/allapppages/appscreans/saved.dart';
+import 'package:flutterlearniti/allapppages/appscreans/search.dart';
+import 'package:flutterlearniti/allapppages/appscreans/settings.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main()  async {
@@ -82,11 +80,12 @@ class _MyAppState extends State<MyApp> {
         '/forgot-password':(context)=>Forgotpassword(),
         '/intoscrean': (context) => IntroScrean(),
         '/home': (context) => HomeScreen(),
-        '/library': (context) => Librarybookscreen(),
-        '/profile':(context)=>Profile(),
+        //'/library': (context) => Librarybookscreen(),
+        '/profile':(context)=>ProfilePage(),
         '/settings':(context)=>Settings(),
         '/search':(context)=>Search(),
-        '/dashboard':(context)=>Dashboard(),
+        //'/dashboard':(context)=>Dashboard(),
+        //'/book-details':(context)=>BookDetailsPage()
         '/saved':(context)=>Saved(),
       },
     );

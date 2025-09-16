@@ -1,11 +1,25 @@
 // services/Book_api_service.dart
 import 'dart:convert';
-import 'package:flutterlearniti/model/books.dart';
+
 import 'package:http/http.dart' as http;
 
+
+import 'package:flutterlearniti/model/books.dart';
+import 'package:logger/logger.dart';
+
 class BooksApiService {
+  final logger=Logger();
   static const String _baseUrl = 'https://www.googleapis.com/books/v1/volumes';
 
+
+static String _ensureHttps(String url) {
+  if (url.isEmpty) return url;
+    
+    if (url.startsWith('http://')) {
+      return url.replaceFirst('http://', 'https://');
+    }
+  return url;
+}
   // Search books with query
   static Future<ApiResult<List<Book>>> searchBooks(String query) async {
     try {
@@ -13,7 +27,7 @@ class BooksApiService {
       final url = '$_baseUrl?q=$encodedQuery&maxResults=20&printType=books';
       final response = await http
           .get(Uri.parse(url), headers: {'Content-Type': 'application/json'})
-          .timeout(Duration(seconds: 10));
+          .timeout(Duration(seconds: 15));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         final List<dynamic> items = data['items'] ?? [];

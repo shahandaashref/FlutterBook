@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 
 class Helper {
+
+
+  static void showErrorMessage(BuildContext context, String message) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(message),
+      backgroundColor: Colors.red,
+      duration: Duration(seconds: 3),
+    ),
+  );
+}
   static double getResponsiveFontSize(
     BuildContext context, {
     required double fontSize,

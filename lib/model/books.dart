@@ -2,38 +2,45 @@
 class Book {
   final String id;
   final String title;
-  final String author;
+  final List<String> authors;
   final String description;
   final String imageUrl;
   final double rating;
   final int ratingsCount;
   final String category;
   final int pageCount;
+  String? thumbnail;
+  String? publishedDate;
   bool isFavorite;
+  String webReaderLink;
 
   Book({
+    required this.webReaderLink,
     required this.id,
     required this.title,
-    required this.author,
+    required this.authors,
     required this.description,
     required this.imageUrl,
     required this.rating,
     required this.ratingsCount,
     required this.category,
     required this.pageCount,
+    this.publishedDate='',
+    this.thumbnail='',
     this.isFavorite = false,
-  });
+  }){
+      webReaderLink=_ensureHttps(webReaderLink);
+  }
 
   factory Book.fromJson(Map<String, dynamic> json) {
     final volumeInfo = json['volumeInfo'] ?? {};
     final imageLinks = volumeInfo['imageLinks'] ?? {};
+    final accessInfo=json['accessInfo']??{};
 
     return Book(
       id: json['id'] ?? '',
       title: volumeInfo['title'] ?? 'Unknown Title',
-      author:
-          (volumeInfo['authors'] as List<dynamic>?)?.join(', ') ??
-          'Unknown Author',
+      authors: (volumeInfo['authors'] as List?)?.map((e) => e.toString()).toList() ?? [],
       description: volumeInfo['description'] ?? 'No description available.',
       imageUrl: imageLinks['thumbnail'] ?? imageLinks['smallThumbnail'] ?? '',
       rating: (volumeInfo['averageRating'] ?? 0.0).toDouble(),
@@ -41,6 +48,8 @@ class Book {
       category:
           (volumeInfo['categories'] as List<dynamic>?)?.first ?? 'General',
       pageCount: volumeInfo['pageCount'] ?? 0,
+      publishedDate: volumeInfo['publishedDate']??' ',
+      webReaderLink:accessInfo['webReaderLink']??'',
     );
   }
 
@@ -48,7 +57,7 @@ class Book {
     return {
       'id': id,
       'title': title,
-      'author': author,
+      'author': authors,
       'description': description,
       'imageUrl': imageUrl,
       'rating': rating,
@@ -56,6 +65,9 @@ class Book {
       'category': category,
       'pageCount': pageCount,
       'isFavorite': isFavorite,
+      'publishedDate': publishedDate,
+      'webReaderLink':webReaderLink,
+
     };
   }
 
@@ -63,14 +75,26 @@ class Book {
     return Book(
       id: id,
       title: title,
-      author: author,
+      authors: authors,
       description: description,
       imageUrl: imageUrl,
       rating: rating,
       ratingsCount: ratingsCount,
       category: category,
       pageCount: pageCount,
+      publishedDate: publishedDate,
       isFavorite: isFavorite ?? this.isFavorite,
+      webReaderLink:webReaderLink,
     );
+  }
+
+  static String _ensureHttps(String url) {
+    if (url.isEmpty) return url;
+    
+    if (url.startsWith('http://')) {
+      return url.replaceFirst('http://', 'https://');
+    }
+    
+    return url;
   }
 }

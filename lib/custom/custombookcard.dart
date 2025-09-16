@@ -72,7 +72,7 @@ class CustomBookCard extends StatelessWidget {
                   ),
 
                   Text(
-                    "by ${bookInfo.author}",
+                    "by ${bookInfo.authors[0]}",
                     style: theme.textTheme.bodyMedium,
                   ),
                   SizedBox(
